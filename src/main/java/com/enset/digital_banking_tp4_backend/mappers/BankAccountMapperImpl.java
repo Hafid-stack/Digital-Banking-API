@@ -1,8 +1,10 @@
 package com.enset.digital_banking_tp4_backend.mappers;
 
+import com.enset.digital_banking_tp4_backend.dtos.AccountOperationsDTO;
 import com.enset.digital_banking_tp4_backend.dtos.CurrentBankAccountDTO;
 import com.enset.digital_banking_tp4_backend.dtos.CustomerDTO;
 import com.enset.digital_banking_tp4_backend.dtos.SavingBankAccountDTO;
+import com.enset.digital_banking_tp4_backend.entities.AccountOperations;
 import com.enset.digital_banking_tp4_backend.entities.CurrentAccount;
 import com.enset.digital_banking_tp4_backend.entities.Customer;
 import com.enset.digital_banking_tp4_backend.entities.SavingAccount;
@@ -28,6 +30,7 @@ public class BankAccountMapperImpl {
         SavingBankAccountDTO savingBankAccountDTO = new SavingBankAccountDTO();
         BeanUtils.copyProperties(savingAccount, savingBankAccountDTO);
         savingBankAccountDTO.setCustomerDTO(fromCustomer(savingAccount.getCustomer()));
+        savingBankAccountDTO.setType(savingAccount.getClass().getSimpleName());
         return savingBankAccountDTO;
     }
     public SavingAccount fromSavingAccountDTO(SavingBankAccountDTO savingBankAccountDTO) {
@@ -41,6 +44,7 @@ public class BankAccountMapperImpl {
 
         BeanUtils.copyProperties(currentAccount, currentBankAccountDTO);
         currentBankAccountDTO.setCustomerDTO(fromCustomer(currentAccount.getCustomer()));
+        currentBankAccountDTO.setType(currentAccount.getClass().getSimpleName());
         return currentBankAccountDTO;
 
     }
@@ -49,5 +53,10 @@ public class BankAccountMapperImpl {
         BeanUtils.copyProperties(currentBankAccountDTO, currentAccount);
         currentAccount.setCustomer(fromCustomerDTO(currentBankAccountDTO.getCustomerDTO()));
         return currentAccount;
+    }
+    public AccountOperationsDTO fromAccountOperations(AccountOperations accountOperations) {
+        AccountOperationsDTO accountOperationsDTO = new AccountOperationsDTO();
+        BeanUtils.copyProperties(accountOperations, accountOperationsDTO);
+        return accountOperationsDTO;
     }
 }
