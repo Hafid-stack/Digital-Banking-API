@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "http://localhost:4200")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
     @GetMapping("/customers")
