@@ -62,24 +62,40 @@ return bankAccountService.getBankAccountsList();
 //                customerId
 //        );
 //    }
+//    @PostMapping("/accounts/current")
+//    public CurrentBankAccountDTO saveCurrentBankAccount(
+//            @RequestParam double initialBalance,
+//            @RequestParam double overDraft,
+//            @RequestParam Long customerId) throws CustomerNotFoundException {
+//
+//        // Assuming your service has this method
+//        return bankAccountService.saveCurrentBankAccount(initialBalance, overDraft, customerId);
+//    }
+//
+//    // POST /accounts/saving
+//    @PostMapping("/accounts/saving")
+//    public SavingBankAccountDTO saveSavingBankAccount(
+//            @RequestParam double initialBalance,
+//            @RequestParam double interestRate,
+//            @RequestParam Long customerId) throws CustomerNotFoundException {
+//
+//        return bankAccountService.saveSavingBankAccount(initialBalance, interestRate, customerId);
+//    }
     @PostMapping("/accounts/current")
-    public CurrentBankAccountDTO saveCurrentBankAccount(
-            @RequestParam double initialBalance,
-            @RequestParam double overDraft,
-            @RequestParam Long customerId) throws CustomerNotFoundException {
-
-        // Assuming your service has this method
-        return bankAccountService.saveCurrentBankAccount(initialBalance, overDraft, customerId);
+    public CurrentBankAccountDTO saveCurrentBankAccount(@RequestBody CurrentAccountRequestDTO request) throws CustomerNotFoundException {
+        return bankAccountService.saveCurrentBankAccount(
+                request.getInitialBalance(),
+                request.getOverDraft(),
+                request.getCustomerId()
+        );
     }
 
-    // POST /accounts/saving
     @PostMapping("/accounts/saving")
-    public SavingBankAccountDTO saveSavingBankAccount(
-            @RequestParam double initialBalance,
-            @RequestParam double interestRate,
-            @RequestParam Long customerId) throws CustomerNotFoundException {
-
-        return bankAccountService.saveSavingBankAccount(initialBalance, interestRate, customerId);
+    public SavingBankAccountDTO saveSavingBankAccount(@RequestBody SavingAccountRequestDTO request) throws CustomerNotFoundException {
+        return bankAccountService.saveSavingBankAccount(
+                request.getInitialBalance(),
+                request.getInterestRate(),
+                request.getCustomerId()
+        );
     }
-
 }
